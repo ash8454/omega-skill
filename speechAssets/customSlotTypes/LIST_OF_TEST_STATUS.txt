@@ -1,0 +1,6 @@
+Passed
+PASSED
+failed
+FAILED
+pending
+PENDING

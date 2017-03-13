@@ -1,0 +1,57 @@
+{
+  "intents": [
+    {
+      "intent": "NameCapture",
+      "slots": [
+        {
+          "name": "USFirstName",
+          "type": "AMAZON.US_FIRST_NAME"
+        },
+        {
+          "name": "UKFirstName",
+          "type": "AMAZON.GB_FIRST_NAME"
+        }
+      ]
+    },
+    {
+      "intent": "CountryCapture",
+      "slots": [
+        {
+          "name": "Country",
+          "type": "WORLD_COUNTRIES"
+        }
+      ]
+    },
+    {
+       "intent": "TeamStatusIntentRequest",
+       "slots":  [
+       {
+         "name": "TeamName",
+         "type": "LIST_OF_TEAM_NAMES"
+       }
+     ]
+     },
+     {
+        "intent": "TestStatusIntentRequest",
+        "slots":  [
+          {
+            "name": "TeamName",
+            "type": "LIST_OF_TEAM_NAMES"
+          },
+          {
+          "name": "TestStatus",
+          "type": "LIST_OF_TEST_STATUS"
+          }
+      ]
+    },
+    {
+      "intent": "AMAZON.StopIntent"
+    },
+    {
+      "intent": "AMAZON.CancelIntent"
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    }
+  ]
+}

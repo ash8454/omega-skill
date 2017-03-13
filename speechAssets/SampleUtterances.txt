@@ -1,0 +1,23 @@
+NameCapture my name is {USFirstName}
+NameCapture my name is {UKFirstName}
+
+CountryCapture im from {Country}
+CountryCapture i am from {Country}
+
+TeamStatusIntentRequest Give me test result for {TeamName}
+TeamStatusIntentRequest Give me test result for {TeamName} team
+TeamStatusIntentRequest Give me test report for {TeamName}
+TeamStatusIntentRequest Give me test report for {TeamName} team
+TeamStatusIntentRequest What is the test execution status for {TeamName}
+TeamStatusIntentRequest What is the test execution status for {TeamName} team
+TeamStatusIntentRequest What's the test report for {TeamName} team
+TeamStatusIntentRequest What's the test report for {TeamName}
+TeamStatusIntentRequest Summarize the test report for {TeamName}
+TeamStatusIntentRequest Summarize the test report for {TeamName} team
+
+TestStatusIntentRequest Give me number for all {TestStatus} scenarios of {TeamName} team
+TestStatusIntentRequest Give me number for all {TestStatus} scenarios for {TeamName}
+TestStatusIntentRequest How many scenarios have {TestStatus} for {TeamName}
+TestStatusIntentRequest How many scenarios have {TestStatus} for {TeamName} team
+TestStatusIntentRequest Give me number of {TestStatus} scenarios for {TeamName}
+TestStatusIntentRequest Give me number of {TestStatus} scenarios for {TeamName} team
