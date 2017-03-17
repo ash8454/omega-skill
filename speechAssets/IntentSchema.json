@@ -45,6 +45,9 @@
       ]
     },
     {
+      "intent": "SendResultsBySMSIntentRequest"
+    },
+    {
       "intent": "AMAZON.StopIntent"
     },
     {

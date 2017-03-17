@@ -109,6 +109,10 @@ var handlers = {
           }
 
           if (arrayLength >= 1) {
+            var message = `Your team ${teamName} have ${arrayLength} scenarios.
+            Out of ${arrayLength} scenarios, ${passedScenarios} have passed, ${failedScenarios} have failed,
+            there are ${pendingScenarios} pending scenarios.`;
+            this.attributes['testResults'] = message;
             // this.emit(':ask', `Your ${team} have ${arrayLength} scenarios. Your scenario Array is of type ${typeof resultArray}`, 'What would you like to do?');
             this.emit(':ask', `Your team ${teamName} have ${arrayLength} scenarios.
             Out of ${arrayLength} scenarios, ${passedScenarios} have passed, ${failedScenarios} have failed,
@@ -123,11 +127,6 @@ var handlers = {
               this.emit(':tell', 'Sorry, there was a problem accessing your rest api details.');
         });
     }
-
-
-
-
-
   },
 
   'TestStatusIntentRequest': function () {
@@ -165,6 +164,25 @@ var handlers = {
               this.emit(':tell', 'Sorry, there was a problem accessing your rest api details.');
         });
     }
+  },
+
+  'SendResultsBySMSIntentRequest': function () {
+    var message = this.attributes['testResults']
+    //var address =  '101 post st san francisco ca';
+    var toPhoneNumber = '14433733926';
+    omegaRestAPI.SendResultsBySMS(message, toPhoneNumber)
+    .then((messageDetails) => {
+      var resultStatus = messageDetails.result;
+      if (resultStatus ) {
+        this.emit(':ask', `Your teams test execution result is sent to your phone.`);
+      } else {
+        this.emit(':ask', `Sorry, I was not able to sent the results to your phone.`);
+      }
+    })
+    .catch((error) => {
+      console.log("SEND TEST RESULTS REST API ERROR: ", error);
+      this.emit(':tell', 'Sorry, there was a problem accessing your send results rest api details.');
+    });
   },
   'AMAZON.StopIntent': function () {
     //State Automactially Saved with : tell

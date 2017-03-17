@@ -21,3 +21,8 @@ TestStatusIntentRequest How many scenarios have {TestStatus} for {TeamName}
 TestStatusIntentRequest How many scenarios have {TestStatus} for {TeamName} team
 TestStatusIntentRequest Give me number of {TestStatus} scenarios for {TeamName}
 TestStatusIntentRequest Give me number of {TestStatus} scenarios for {TeamName} team
+
+SendResultsBySMSIntentRequest sure text me please
+SendResultsBySMSIntentRequest sure text me
+SendResultsBySMSIntentRequest sure send me please
+SendResultsBySMSIntentRequest sure send me

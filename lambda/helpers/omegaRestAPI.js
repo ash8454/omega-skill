@@ -44,6 +44,29 @@ module.exports = {
         reject("Omega REST API Error", error);
       });
     });
+  },
+  SendResultsBySMS: (message, toPhoneNumber) => {
+    return new Promise((resolve, reject) => {
+
+      // Call Meetup api
+      request({
+        url: `https://hidden-thicket-90736.herokuapp.com/api/send/${message}/${toPhoneNumber}`,
+    //   url: `https://hidden-thicket-90736.herokuapp.com/api/send/${address}/${phoneNumber}`,
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then((response) => {
+        //Return user details
+        resolve(JSON.parse(response));
+      })
+      .catch((error) => {
+        //Return error
+        reject("Send SMS REST API Error", error);
+      });
+    });
   }
+
 
 };
