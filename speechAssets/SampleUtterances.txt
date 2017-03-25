@@ -1,8 +1,11 @@
 NameCapture my name is {USFirstName}
 NameCapture my name is {UKFirstName}
 
-CountryCapture im from {Country}
-CountryCapture i am from {Country}
+StateCapture im from {State}
+StateCapture i am from {State}
+
+CityCapture i reside in {City}
+CityCapture i live in {City}
 
 TeamStatusIntentRequest Give me test result for {TeamName}
 TeamStatusIntentRequest Give me test result for {TeamName} team
@@ -26,3 +29,4 @@ SendResultsBySMSIntentRequest sure text me please
 SendResultsBySMSIntentRequest sure text me
 SendResultsBySMSIntentRequest sure send me please
 SendResultsBySMSIntentRequest sure send me
+SendResultsBySMSIntentRequest sure

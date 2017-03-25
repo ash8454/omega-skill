@@ -14,11 +14,20 @@
       ]
     },
     {
-      "intent": "CountryCapture",
+      "intent": "StateCapture",
       "slots": [
         {
-          "name": "Country",
-          "type": "WORLD_COUNTRIES"
+          "name": "State",
+          "type": "US_STATES"
+        }
+      ]
+    },
+    {
+      "intent": "CityCapture",
+      "slots": [
+        {
+          "name": "City",
+          "type": "US_CITIES"
         }
       ]
     },

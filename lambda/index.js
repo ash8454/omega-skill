@@ -51,24 +51,40 @@ var handlers = {
     // Save Name in Session Attributes and Ask for Country
     if (name) {
       this.attributes['userName'] = name;
-      this.emit(':ask', `Ok ${name}! Tell me what country you're from by saying: I'm from, and then the country you're from.`, `Tell me what country you're from by saying: I'm from, and then the country you're from.`);
+      this.emit(':ask', `Ok ${name}! Tell me what state you're from by saying: I'm from, and then the state you're from.`, `Tell me what state you're from by saying: I'm from, and then the state you're from.`, `Tell me what state you're from by saying: I'm from, and then the state you're from.`);
     } else {
       this.emit(':ask', `Sorry, I didn\'t recognise that name!`, `'Tell me your name by saying: My name is, and then your name.'`);
     }
   },
 
-  'CountryCapture': function () {
+  'StateCapture': function () {
     // Get Slot Values
-    var country = this.event.request.intent.slots.Country.value;
+    var state = this.event.request.intent.slots.State.value;
 
     // Get User Name from Session Attributes
     var userName = this.attributes['userName'];
 
     // Save Country in Session Attributes and Move Into Main Skill
-    if (country) {
-      this.attributes['userCountry'] = country;
+    // Save Country in Session Attributes and Move Into Main Skill
+    if (state) {
+      this.attributes['userState'] = state;
+      this.emit(':ask', `Ok ${userName}! Your from ${state}, that's great! Tell me what city you're from by saying: I live in.. then the city you live in`, `Tell me what city you're from by saying: I live in.. and then the city you live in`);
+    } else {
+      this.emit(':ask', `Sorry, I didn\'t recognise that state!`, `Tell me what state you're from by saying: I am from and then the state you're from.`, `Tell me what state you're from by saying: I am from, and then the state you're from.`);
+    }
+  },
+
+  'CityCapture': function () {
+    // Get Slot Values
+    var city = this.event.request.intent.slots.City.value;
+
+    // Get User Name from Session Attributes
+    var userName = this.attributes['userName'];
+
+    if (city) {
+      this.attributes['userCity'] = city;
       //this.emit(':ask', `Ok ${userName}! Your from ${country}, that's great! Tell me what city you're from by saying: I live in and then the city you're from.`, `Tell me what city you're from by saying: I live in, and then the city you're from.`);
-      this.emit(':ask', `Ok ${userName}! Your from ${country}, that's great!  You can ask me about the status of test execution by saying.
+      this.emit(':ask', `Ok ${userName}! You live in ${city}, that's great!  You can ask me about the status of test execution by saying.
       <break time=\"0.5s\"/> Give me test result for your team name <break time=\"0.2s\"/> like for example <break time=\"0.5s\"/>
       Give me test result for avengers <break time=\"0.5s\"/>
       or you can also say
@@ -80,10 +96,13 @@ var handlers = {
        How many scenarios have passed for avengers team., <break time=\"1s\"/>
        What would you like to do?`);
      } else {
-       this.emit(':ask', `Sorry, I didn\'t recognise that country!`, `Tell me what country you're from by saying: I am from and then the country you're from.`, `Tell me what country you're from by saying: I am from, and then the country you're from.`);
+       this.emit(':ask', `Sorry, I didn\'t recognise that city!`, `Tell me what city you live in by saying:
+       I live in.. then the city you live in..`,
+       `Tell me what city you live in by saying:
+       I live in.. then the city you live in..`);
      }
-  },
 
+  },
 
   'TeamStatusIntentRequest': function () {
     var teamName = this.event.request.intent.slots.TeamName.value;
@@ -109,14 +128,12 @@ var handlers = {
           }
 
           if (arrayLength >= 1) {
-            var message = `Your team ${teamName} have ${arrayLength} scenarios.
-            Out of ${arrayLength} scenarios, ${passedScenarios} have passed, ${failedScenarios} have failed,
-            there are ${pendingScenarios} pending scenarios.`;
-            this.attributes['testResults'] = message;
             // this.emit(':ask', `Your ${team} have ${arrayLength} scenarios. Your scenario Array is of type ${typeof resultArray}`, 'What would you like to do?');
+            var message = `Your team avengers have ${passedScenarios} passed scenarios,  ${failedScenarios} failed scenarios and  ${pendingScenarios} pending scenarios`;
+            this.attributes['testResults'] = message;
             this.emit(':ask', `Your team ${teamName} have ${arrayLength} scenarios.
             Out of ${arrayLength} scenarios, ${passedScenarios} have passed, ${failedScenarios} have failed,
-            there are ${pendingScenarios} pending scenarios.`, 'What would you like to do?');
+            there are ${pendingScenarios} pending scenarios. Would you like me to text the test results to you?`, 'What would you like to do?');
 
           } else {
             this.emit(':ask', `Your team ${teamName} don't have any scenarios.`, 'What would you like to do?');
@@ -132,11 +149,6 @@ var handlers = {
   'TestStatusIntentRequest': function () {
     var teamName = this.event.request.intent.slots.TeamName.value;
     var testStatus = this.event.request.intent.slots.TestStatus.value;
-    // if (team) {
-    //   this.emit(':ask', `Your team name is ${team}, What would you like to do?`, 'What would you like to do?')
-    // } else {
-    //   this.emit(':ask', `Error occured, What would you like to do?`, 'What would you like to do?')
-    // }
     if (!teamName) {
       this.emit(':ask', `Sorry, I couldn't find your team ${teamName}. Please try again.`, 'Please try again.');
     } else {
@@ -167,14 +179,15 @@ var handlers = {
   },
 
   'SendResultsBySMSIntentRequest': function () {
-    var message = this.attributes['testResults']
+    var message = this.attributes['testResults'];
     //var address =  '101 post st san francisco ca';
     var toPhoneNumber = '14433733926';
+    //this.emit(':tell', `${message}`);
     omegaRestAPI.SendResultsBySMS(message, toPhoneNumber)
     .then((messageDetails) => {
-      var resultStatus = messageDetails.result;
+      var resultStatus = messageDetails.Results;
       if (resultStatus ) {
-        this.emit(':ask', `Your teams test execution result is sent to your phone.`);
+        this.emit(':ask', `Your teams test execution result is sent to your phone. ${message}.`, `Your teams test execution result is sent to your phone.`);
       } else {
         this.emit(':ask', `Sorry, I was not able to sent the results to your phone.`);
       }

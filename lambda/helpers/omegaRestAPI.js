@@ -51,7 +51,7 @@ module.exports = {
       // Call Meetup api
       request({
         url: `https://hidden-thicket-90736.herokuapp.com/api/send/results/${message}/${toPhoneNumber}`,
-    //   url: `https://hidden-thicket-90736.herokuapp.com/api/send/${address}/${phoneNumber}`,
+    //   url: `https://hidden-thicket-90736.herokuapp.com/api/send/results/Passed/${toPhoneNumber}`,
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
